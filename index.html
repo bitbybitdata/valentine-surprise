@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', cursive;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb3c1 50%, #ff8fab 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 10s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+            border: 5px solid #ff69b4;
+        }
+
+        /* Candy decorations */
+        .candy {
+            position: absolute;
+            font-size: 40px;
+            animation: spin 3s infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .candy-1 { top: -20px; left: 20px; }
+        .candy-2 { top: -20px; right: 20px; }
+        .candy-3 { bottom: -20px; left: 30px; }
+        .candy-4 { bottom: -20px; right: 30px; }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2em; /* Changed from 2.5em */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #ff69b4;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .gif-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 15px;
+        }
+
+        .gif-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            border: 3px solid #ff69b4;
+            object-fit: cover;
+        }
+
+        .question {
+            font-size: 2em;
+            color: #ff1493;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 200px; /* Increased from 120px */
+            padding: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #ddd, #bbb);
+            color: #666;
+            position: relative; /* Changed from absolute */
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        /* Success message */
+        .success {
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success h2 {
+            color: #ff1493;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .success p {
+            color: #ff69b4;
+            font-size: 1.3em;
+            margin: 15px 0;
+        }
+
+        /* Confetti hearts */
+        .confetti-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: confetti 3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .question {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 1.2em;
+            }
+
+            .gif-container img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .candy {
+                font-size: 30px;
+            }
+
+            .button-container {
+                gap: 20px;
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <!-- Candy decorations -->
+        <div class="candy candy-1">🍭</div>
+        <div class="candy candy-2">🍬</div>
+        <div class="candy candy-3">🍫</div>
+        <div class="candy candy-4">🧁</div>
+
+        <div id="questionSection">
+            <h1>💕 Hey Sweet Vanshika... 💕</h1>
+            <p class="subtitle">~Playing "Do You Know" by Diljit on repeat~</p>
+
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/iyYWOTq2mInrUEsOVA/giphy.gif" alt="Valentine Bear">
+                <img src="https://media.giphy.com/media/2VcF2fKqKkjaruRFNi/giphy.gif" alt="Cute Hearts">
+                <img src="https://media.giphy.com/media/ZCHs8LlL0FxHQ49Zy5/giphy.gif" alt="Be Mine">
+            </div>
+
+            <div class="question">
+                🌹 Will You Be My Valentine? 🌹
+            </div>
+
+            <div class="button-container" id="buttonContainer">
+                <button id="yesBtn">Yes! 💖</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <div class="success" id="successSection">
+            <h2>🎉 YAAAY! 🎉</h2>
+            <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3djdqYXZ0N2kweXRvam9rbngyYWRxYjNlM3ZpMzUxeHgyd2Zxc3pidiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kHGfButwZASyUix5vq/giphy.gif" alt="Celebration" style="width: 300px; max-width: 100%; border-radius: 15px; margin: 20px 0;">
+            <p>I knew you'd say yes! 💕</p>
+            <p>You're sweeter than all the gulab jamuns in the world! 🍬</p>
+            <p>Let's celebrate with some Diljit songs! 🎵</p>
+            <p style="margin-top: 20px; font-size: 1.5em;">🥰 You + Me = "Lover" by Diljit 🥰</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts background
+        function createFloatingHearts() {
+            const heartBg = document.getElementById('heartBg');
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartBg.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const questionSection = document.getElementById('questionSection');
+        const successSection = document.getElementById('successSection');
+
+        let noBtnScale = 1;
+        let yesBtnScale = 1;
+
+        // Function to move the No button
+        function moveNoButton() {
+            // Only make it absolute positioned when we start moving it
+            if (noBtn.style.position !== 'absolute') {
+                const rect = noBtn.getBoundingClientRect();
+                const containerRect = buttonContainer.getBoundingClientRect();
+                
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = (rect.left - containerRect.left) + 'px';
+                noBtn.style.top = (rect.top - containerRect.top) + 'px';
+            }
+            
+            const containerRect = buttonContainer.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Increased boundaries for more movement
+            const padding = -50; // Negative padding allows button to move more freely
+            const maxX = containerRect.width - btnRect.width - padding;
+            const maxY = containerRect.height - btnRect.height - padding;
+            
+            // Generate random position with wider range
+            let newX = Math.random() * (maxX + 100) - 50;
+            let newY = Math.random() * (maxY + 100) - 50;
+            
+            // Ensure minimum distance from Yes button (increased distance)
+            const yesBtnRect = yesBtn.getBoundingClientRect();
+            const yesBtnCenterX = yesBtnRect.left - containerRect.left + yesBtnRect.width / 2;
+            const yesBtnCenterY = yesBtnRect.top - containerRect.top + yesBtnRect.height / 2;
+            const minDistance = 200; // Increased from 150
+            
+            const distance = Math.sqrt(Math.pow(newX - yesBtnCenterX, 2) + Math.pow(newY - yesBtnCenterY, 2));
+            
+            if (distance < minDistance) {
+                const angle = Math.atan2(newY - yesBtnCenterY, newX - yesBtnCenterX);
+                newX = yesBtnCenterX + Math.cos(angle) * (minDistance + Math.random() * 100);
+                newY = yesBtnCenterY + Math.sin(angle) * (minDistance + Math.random() * 100);
+            }
+            
+            // Allow more freedom - keep within reasonable bounds
+            newX = Math.max(-30, Math.min(newX, containerRect.width + 30));
+            newY = Math.max(-30, Math.min(newY, containerRect.height + 30));
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+            
+            // Make No button smaller and Yes button bigger
+            noBtnScale -= 0.1;
+            yesBtnScale += 0.15;
+            
+            if (noBtnScale < 0.4) noBtnScale = 0.4;
+            
+            noBtn.style.transform = `scale(${noBtnScale})`;
+            yesBtn.style.transform = `scale(${yesBtnScale})`;
+        }
+
+        // Desktop hover event
+        noBtn.addEventListener('mouseenter', moveNoButton);
+
+        // Mobile touch events
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Prevent click on No button
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Yes button click
+        yesBtn.addEventListener('click', function() {
+            questionSection.style.display = 'none';
+            successSection.style.display = 'block';
+            
+            // Create confetti hearts
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-heart';
+                    confetti.textContent = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '100%';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
