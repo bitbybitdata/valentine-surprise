@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+    
         body {
             font-family: 'Comic Sans MS', 'Arial', cursive;
             background: linear-gradient(135deg, #ffd1dc 0%, #ffb3c1 50%, #ff8fab 100%);
@@ -21,7 +21,7 @@
             overflow: hidden;
             position: relative;
         }
-
+    
         /* Floating hearts background */
         .heart-bg {
             position: absolute;
@@ -30,14 +30,14 @@
             overflow: hidden;
             z-index: 0;
         }
-
+    
         .heart {
             position: absolute;
             font-size: 20px;
             animation: float 10s infinite;
             opacity: 0.6;
         }
-
+    
         @keyframes float {
             0% {
                 transform: translateY(100vh) rotate(0deg);
@@ -51,90 +51,102 @@
                 opacity: 0;
             }
         }
-
+    
         /* Main container */
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+            padding: 30px 20px;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
-            max-width: 600px;
+            max-width: 500px;
             width: 90%;
             position: relative;
             z-index: 1;
             border: 5px solid #ff69b4;
         }
-
+    
         /* Candy decorations */
         .candy {
             position: absolute;
-            font-size: 40px;
+            font-size: 30px;
             animation: spin 3s infinite;
         }
-
+    
         @keyframes spin {
             0%, 100% { transform: rotate(-10deg); }
             50% { transform: rotate(10deg); }
         }
-
-        .candy-1 { top: -20px; left: 20px; }
-        .candy-2 { top: -20px; right: 20px; }
-        .candy-3 { bottom: -20px; left: 30px; }
-        .candy-4 { bottom: -20px; right: 30px; }
-
+    
+        .candy-1 { top: -15px; left: 15px; }
+        .candy-2 { top: -15px; right: 15px; }
+        .candy-3 { bottom: -15px; left: 20px; }
+        .candy-4 { bottom: -15px; right: 20px; }
+    
         h1 {
             color: #ff1493;
-            font-size: 2em; /* Changed from 2.5em */
-            margin-bottom: 20px;
+            font-size: 1.6em;
+            margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-
+    
         .subtitle {
             color: #ff69b4;
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            font-size: 0.95em;
+            margin-bottom: 20px;
             font-style: italic;
         }
-
+    
         .gif-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            margin: 30px 0;
-            gap: 15px;
+            margin: 20px 0;
+            gap: 10px;
         }
-
+    
         .gif-container img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 15px;
             border: 3px solid #ff69b4;
             object-fit: cover;
         }
-
+    
         .question {
-            font-size: 2em;
+            font-size: 1.4em;
             color: #ff1493;
-            margin: 30px 0;
+            margin: 20px 0;
             font-weight: bold;
         }
-
+    
+        .no-response {
+            font-size: 1.1em;
+            color: #ff69b4;
+            margin: 15px 0;
+            font-weight: bold;
+            min-height: 30px;
+            animation: shake 0.5s;
+        }
+    
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    
         .button-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
-            margin-top: 40px;
+            gap: 15px;
+            margin-top: 30px;
             flex-wrap: wrap;
-            position: relative;
-            min-height: 200px; /* Increased from 120px */
-            padding: 20px;
         }
-
+    
         button {
-            padding: 15px 40px;
-            font-size: 1.5em;
+            padding: 12px 30px;
+            font-size: 1.2em;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -142,51 +154,56 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
+    
         #yesBtn {
             background: linear-gradient(135deg, #ff69b4, #ff1493);
             color: white;
-            position: relative;
-            z-index: 2;
         }
-
-
-        #yesBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+    
+        #yesBtn:active {
+            transform: scale(0.95);
         }
-
+    
         #noBtn {
             background: linear-gradient(135deg, #ddd, #bbb);
             color: #666;
-            position: relative; /* Changed from absolute */
             transition: all 0.3s ease;
-            z-index: 1;
         }
-
+    
+        #noBtn:active {
+            transform: scale(0.95);
+        }
+    
         /* Success message */
         .success {
             display: none;
             animation: fadeIn 1s;
         }
-
+    
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
-
+    
         .success h2 {
             color: #ff1493;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            font-size: 2em;
+            margin-bottom: 15px;
         }
-
+    
         .success p {
             color: #ff69b4;
-            font-size: 1.3em;
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+    
+        .success img {
+            width: 250px;
+            max-width: 100%;
+            border-radius: 15px;
             margin: 15px 0;
         }
-
+    
         /* Confetti hearts */
         .confetti-heart {
             position: absolute;
@@ -194,7 +211,7 @@
             animation: confetti 3s ease-out forwards;
             pointer-events: none;
         }
-
+    
         @keyframes confetti {
             0% {
                 transform: translateY(0) rotate(0deg);
@@ -205,38 +222,41 @@
                 opacity: 0;
             }
         }
-
+    
         /* Mobile responsive */
         @media (max-width: 600px) {
             .container {
-                padding: 30px 20px;
+                padding: 25px 15px;
             }
-
+    
             h1 {
-                font-size: 2em;
+                font-size: 1.4em;
             }
-
+    
+            .subtitle {
+                font-size: 0.85em;
+            }
+    
             .question {
-                font-size: 1.5em;
-            }
-
-            button {
-                padding: 12px 30px;
                 font-size: 1.2em;
             }
-
+    
+            .no-response {
+                font-size: 1em;
+            }
+    
+            button {
+                padding: 10px 25px;
+                font-size: 1.1em;
+            }
+    
             .gif-container img {
-                width: 120px;
-                height: 120px;
+                width: 85px;
+                height: 85px;
             }
-
+    
             .candy {
-                font-size: 30px;
-            }
-
-            .button-container {
-                gap: 20px;
-                min-height: 100px;
+                font-size: 25px;
             }
         }
     </style>
@@ -303,94 +323,56 @@
     
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
-        const buttonContainer = document.getElementById('buttonContainer');
         const questionSection = document.getElementById('questionSection');
         const successSection = document.getElementById('successSection');
     
-        let noBtnScale = 1;
-        let yesBtnScale = 1;
-        let isNoButtonAbsolute = false;
+        let noCount = 0;
+        const noResponses = [
+            "Are you sure? 🥺",
+            "Really? Think again! 💔",
+            "Please? I'll be sad... 😢",
+            "Don't break my heart! 💔",
+            "Last chance... 🥹"
+        ];
     
-        // Function to move the No button
-        function moveNoButton() {
-            // Only make it absolute positioned when we start moving it
-            if (!isNoButtonAbsolute) {
-                const rect = noBtn.getBoundingClientRect();
-                const containerRect = buttonContainer.getBoundingClientRect();
-                
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = (rect.left - containerRect.left) + 'px';
-                noBtn.style.top = (rect.top - containerRect.top) + 'px';
-                isNoButtonAbsolute = true;
-            }
-            
-            const containerRect = buttonContainer.getBoundingClientRect();
-            const btnRect = noBtn.getBoundingClientRect();
-            
-            // Increased boundaries for more movement
-            const padding = -50;
-            const maxX = containerRect.width - btnRect.width - padding;
-            const maxY = containerRect.height - btnRect.height - padding;
-            
-            // Generate random position with wider range
-            let newX = Math.random() * (maxX + 100) - 50;
-            let newY = Math.random() * (maxY + 100) - 50;
-            
-            // Ensure minimum distance from Yes button
-            const yesBtnRect = yesBtn.getBoundingClientRect();
-            const yesBtnCenterX = yesBtnRect.left - containerRect.left + yesBtnRect.width / 2;
-            const yesBtnCenterY = yesBtnRect.top - containerRect.top + yesBtnRect.height / 2;
-            const minDistance = 200;
-            
-            const distance = Math.sqrt(Math.pow(newX - yesBtnCenterX, 2) + Math.pow(newY - yesBtnCenterY, 2));
-            
-            if (distance < minDistance) {
-                const angle = Math.atan2(newY - yesBtnCenterY, newX - yesBtnCenterX);
-                newX = yesBtnCenterX + Math.cos(angle) * (minDistance + Math.random() * 100);
-                newY = yesBtnCenterY + Math.sin(angle) * (minDistance + Math.random() * 100);
-            }
-            
-            // Allow more freedom
-            newX = Math.max(-30, Math.min(newX, containerRect.width + 30));
-            newY = Math.max(-30, Math.min(newY, containerRect.height + 30));
-            
-            noBtn.style.left = newX + 'px';
-            noBtn.style.top = newY + 'px';
-            
-            // Make No button smaller and Yes button bigger
-            noBtnScale -= 0.1;
-            yesBtnScale += 0.15;
-            
-            if (noBtnScale < 0.4) noBtnScale = 0.4;
-            
-            noBtn.style.transform = `scale(${noBtnScale})`;
-            yesBtn.style.transform = `scale(${yesBtnScale})`;
-        }
+        // Create a div for showing responses
+        const responseDiv = document.createElement('div');
+        responseDiv.className = 'no-response';
+        questionSection.insertBefore(responseDiv, document.querySelector('.button-container'));
     
-        // Desktop hover event
-        noBtn.addEventListener('mouseenter', moveNoButton);
-    
-        // Mobile touch events - FIXED VERSION
-        noBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            moveNoButton();
-        }, { passive: false });
-    
-        // Prevent click on No button (for both desktop and mobile)
+        // No button click handler
         noBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            moveNoButton();
+            
+            if (noCount < 5) {
+                // Show response message
+                responseDiv.textContent = noResponses[noCount];
+                responseDiv.style.animation = 'none';
+                setTimeout(() => {
+                    responseDiv.style.animation = 'shake 0.5s';
+                }, 10);
+                
+                // Increase Yes button size
+                const newScale = 1 + (noCount + 1) * 0.2;
+                yesBtn.style.transform = `scale(${newScale})`;
+                
+                // Decrease No button size
+                const noScale = 1 - (noCount + 1) * 0.15;
+                noBtn.style.transform = `scale(${noScale})`;
+                
+                noCount++;
+                
+                // After 5 clicks, hide the No button
+                if (noCount === 5) {
+                    setTimeout(() => {
+                        noBtn.style.display = 'none';
+                        responseDiv.textContent = "Only one option left! 💕";
+                    }, 500);
+                }
+            }
         });
     
-        // Additional touchend handler for mobile
-        noBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }, { passive: false });
-    
-        // Yes button click (works on both desktop and mobile)
+        // Yes button click handler
         yesBtn.addEventListener('click', function() {
             questionSection.style.display = 'none';
             successSection.style.display = 'block';
@@ -409,12 +391,6 @@
                 }, i * 100);
             }
         });
-    
-        // Yes button touch handler for better mobile experience
-        yesBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            this.click();
-        }, { passive: false });
     </script>
 </body>
 </html>
