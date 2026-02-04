@@ -298,35 +298,37 @@
                 heartBg.appendChild(heart);
             }
         }
-
+    
         createFloatingHearts();
-
+    
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const buttonContainer = document.getElementById('buttonContainer');
         const questionSection = document.getElementById('questionSection');
         const successSection = document.getElementById('successSection');
-
+    
         let noBtnScale = 1;
         let yesBtnScale = 1;
-
+        let isNoButtonAbsolute = false;
+    
         // Function to move the No button
         function moveNoButton() {
             // Only make it absolute positioned when we start moving it
-            if (noBtn.style.position !== 'absolute') {
+            if (!isNoButtonAbsolute) {
                 const rect = noBtn.getBoundingClientRect();
                 const containerRect = buttonContainer.getBoundingClientRect();
                 
                 noBtn.style.position = 'absolute';
                 noBtn.style.left = (rect.left - containerRect.left) + 'px';
                 noBtn.style.top = (rect.top - containerRect.top) + 'px';
+                isNoButtonAbsolute = true;
             }
             
             const containerRect = buttonContainer.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
             
             // Increased boundaries for more movement
-            const padding = -50; // Negative padding allows button to move more freely
+            const padding = -50;
             const maxX = containerRect.width - btnRect.width - padding;
             const maxY = containerRect.height - btnRect.height - padding;
             
@@ -334,11 +336,11 @@
             let newX = Math.random() * (maxX + 100) - 50;
             let newY = Math.random() * (maxY + 100) - 50;
             
-            // Ensure minimum distance from Yes button (increased distance)
+            // Ensure minimum distance from Yes button
             const yesBtnRect = yesBtn.getBoundingClientRect();
             const yesBtnCenterX = yesBtnRect.left - containerRect.left + yesBtnRect.width / 2;
             const yesBtnCenterY = yesBtnRect.top - containerRect.top + yesBtnRect.height / 2;
-            const minDistance = 200; // Increased from 150
+            const minDistance = 200;
             
             const distance = Math.sqrt(Math.pow(newX - yesBtnCenterX, 2) + Math.pow(newY - yesBtnCenterY, 2));
             
@@ -348,7 +350,7 @@
                 newY = yesBtnCenterY + Math.sin(angle) * (minDistance + Math.random() * 100);
             }
             
-            // Allow more freedom - keep within reasonable bounds
+            // Allow more freedom
             newX = Math.max(-30, Math.min(newX, containerRect.width + 30));
             newY = Math.max(-30, Math.min(newY, containerRect.height + 30));
             
@@ -364,23 +366,31 @@
             noBtn.style.transform = `scale(${noBtnScale})`;
             yesBtn.style.transform = `scale(${yesBtnScale})`;
         }
-
+    
         // Desktop hover event
         noBtn.addEventListener('mouseenter', moveNoButton);
-
-        // Mobile touch events
+    
+        // Mobile touch events - FIXED VERSION
         noBtn.addEventListener('touchstart', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             moveNoButton();
-        });
-
-        // Prevent click on No button
+        }, { passive: false });
+    
+        // Prevent click on No button (for both desktop and mobile)
         noBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             moveNoButton();
         });
-
-        // Yes button click
+    
+        // Additional touchend handler for mobile
+        noBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
+    
+        // Yes button click (works on both desktop and mobile)
         yesBtn.addEventListener('click', function() {
             questionSection.style.display = 'none';
             successSection.style.display = 'block';
@@ -399,6 +409,12 @@
                 }, i * 100);
             }
         });
+    
+        // Yes button touch handler for better mobile experience
+        yesBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.click();
+        }, { passive: false });
     </script>
 </body>
 </html>
